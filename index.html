@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>The Wedding of Dwi & Annisa</title>
+    
+    <!-- Meta tags for social sharing -->
+    <meta property="og:title" content="The Wedding of Dwi & Annisa">
+    <meta property="og:description" content="Undangan Pernikahan Digital Adat Sunda - Dwi & Annisa">
+    <meta property="og:image" content="assets/images/gallery-1.jpg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Italiana&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Background Audio -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="assets/audio/wedding-song.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Audio Toggle Button (Vinyl Disc) -->
+    <div id="musicToggle" class="floating-music-btn hide" role="button" tabindex="0" aria-label="Putar atau jeda musik latar" title="Putar / Jeda Musik">
+        <div class="vinyl-disc">
+            <span class="vinyl-center"></span>
+        </div>
+    </div>
+
+    <!-- Main Container (Mobile Frame on Desktop) -->
+    <div class="mobile-container">
+
+        <!-- ==================== SPLASH / COVER SCREEN ==================== -->
+        <section id="cover" class="cover-screen">
+            <!-- LIVING SCENE LAYERS (all decorative) -->
+            <div class="scene-wrap" aria-hidden="true">
+                <!-- Flowers swaying top-left -->
+                <img src="assets/images/flowers-top-left.png" alt="" class="scene-layer flowers-tl">
+                <!-- Flowers swaying top-right -->
+                <img src="assets/images/flowers-top-right.png" alt="" class="scene-layer flowers-tr">
+                <!-- Saung house with warm glow -->
+                <img src="assets/images/saung-house.png" alt="" class="scene-layer saung-house">
+                <!-- Warm window glow -->
+                <div class="saung-glow"></div>
+                <!-- Falling petals -->
+                <div class="petals-wrap">
+                    <span class="petal p1"></span>
+                    <span class="petal p2"></span>
+                    <span class="petal p3"></span>
+                    <span class="petal p4"></span>
+                    <span class="petal p5"></span>
+                    <span class="petal p6"></span>
+                    <span class="petal p7"></span>
+                    <span class="petal p8"></span>
+                </div>
+                <!-- Fireflies / Bokeh lights -->
+                <div class="fireflies-wrap">
+                    <span class="firefly ff1"></span>
+                    <span class="firefly ff2"></span>
+                    <span class="firefly ff3"></span>
+                    <span class="firefly ff4"></span>
+                    <span class="firefly ff5"></span>
+                </div>
+            </div>
+
+            <!-- Flying Birds in Sky -->
+            <div class="birds-wrap" aria-hidden="true">
+                <span class="bird bird-1"></span>
+                <span class="bird bird-2"></span>
+                <span class="bird bird-3"></span>
+            </div>
+
+            <!-- Fluttering Butterflies -->
+            <div class="butterflies-wrap" aria-hidden="true">
+                <div class="butterfly-flight bf-flight-1">
+                    <img src="assets/images/butterfly.png" alt="" class="butterfly-wing">
+                </div>
+                <div class="butterfly-flight bf-flight-2">
+                    <img src="assets/images/butterfly.png" alt="" class="butterfly-wing">
+                </div>
+            </div>
+
+            <div class="cover-content">
+                <p class="subtitle-top">THE WEDDING OF</p>
+                <h1 class="couple-title-script">Dwi &amp; Annisa</h1>
+                <p class="cover-date">25 - 26 September 2026</p>
+
+                <div class="guest-card">
+                    <p class="guest-label">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+                    <h3 id="guestName" class="guest-name">Tamu Undangan</h3>
+                    <p class="guest-note">*Mohon maaf bila ada kesalahan penulisan nama/gelar</p>
+                </div>
+
+                <button id="btnOpen" class="btn-open">
+                    <i class="fa-solid fa-envelope-open-text"></i> Buka Undangan
+                </button>
+
+                <!-- Bouncing scroll pill indicator (from TikTok video) -->
+                <div class="scroll-indicator" id="scrollIndicator" role="button" tabindex="0" aria-label="Buka undangan pernikahan">
+                    <div class="mouse-pill">
+                        <span class="mouse-arrow"><i class="fa-solid fa-arrow-down"></i></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== MAIN INVITATION CONTENT ==================== -->
+        <main id="mainContent" class="main-content locked">
+
+            <!-- HERO / PHOTO BANNER -->
+            <section id="home" class="section hero-section">
+                <div class="couple-banner-card">
+                    <img src="assets/images/gallery-1.jpg" alt="Dwi & Annisa" class="couple-banner-img">
+                </div>
+
+                <!-- Monogram & Quran Quote (Ar-Rum 21) -->
+                <div class="quote-card sunda-quote-card">
+                    <div class="monogram-heading">D <span>&amp;</span> A</div>
+                    <p class="quote-text">
+                        "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."
+                    </p>
+                    <span class="quote-source">— QS. Ar-Rum : 21 —</span>
+                </div>
+            </section>
+
+            <!-- MEMPELAI (BRIDE & GROOM) -->
+            <section id="mempelai" class="section bride-groom-section">
+                <!-- Siger Sunda Crown from video -->
+                <img src="assets/images/siger.png" alt="Siger Sunda" class="siger-header-img">
+                <h2 class="section-title-script">We Are Getting Married!</h2>
+                <p class="sunda-doa-text">
+                    Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Ya Allah semoga ridho-Mu tercurah mengiringi pernikahan kami:
+                </p>
+
+                <!-- Bride (Annisa Mustafidah) -->
+                <div class="profile-card-sunda">
+                    <div class="profile-arch-frame">
+                        <img src="assets/images/bride.jpg" alt="Annisa Mustafidah" class="profile-arch-img">
+                    </div>
+                    <div class="profile-script-name">Annisa</div>
+                    <h3 class="profile-fullname">Annisa Mustafidah</h3>
+                    <p class="profile-parent">
+                        Putri pertama dari:<br>
+                        <strong>Bpk. Siswanto (Alm) &amp; Ibu Siti Musyarofah (Almh)</strong>
+                    </p>
+                    <a href="https://instagram.com" target="_blank" rel="noopener" class="btn-socmed-sunda">
+                        <i class="fa-brands fa-instagram"></i> @annisa.mustafidah
+                    </a>
+                </div>
+
+                <div class="ampersand-divider-sunda">&amp;</div>
+
+                <!-- Groom (Dwi Saputra) -->
+                <div class="profile-card-sunda">
+                    <div class="profile-arch-frame">
+                        <img src="assets/images/groom.jpg" alt="Dwi Saputra" class="profile-arch-img">
+                    </div>
+                    <div class="profile-script-name">Dwi</div>
+                    <h3 class="profile-fullname">Dwi Saputra</h3>
+                    <p class="profile-parent">
+                        Putra anak ke-2 dari:<br>
+                        <strong>Bpk. Nana Sarip &amp; Ibu Aam Rosita</strong>
+                    </p>
+                    <a href="https://instagram.com" target="_blank" rel="noopener" class="btn-socmed-sunda">
+                        <i class="fa-brands fa-instagram"></i> @dwisaputra
+                    </a>
+                </div>
+            </section>
+
+            <!-- ACARA (SAVE THE DATE & COUNTDOWN) -->
+            <section id="acara" class="section event-section">
+                <img src="assets/images/divider.png" alt="Pemisah" class="section-divider">
+                <h2 class="section-title">Save The Date</h2>
+
+                <!-- Countdown Timer -->
+                <div class="countdown-wrap">
+                    <div class="countdown-box">
+                        <span id="days" class="countdown-num">00</span>
+                        <span class="countdown-label">Hari</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span id="hours" class="countdown-num">00</span>
+                        <span class="countdown-label">Jam</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span id="minutes" class="countdown-num">00</span>
+                        <span class="countdown-label">Menit</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span id="seconds" class="countdown-num">00</span>
+                        <span class="countdown-label">Detik</span>
+                    </div>
+                </div>
+
+                <!-- Event 1: Akad Nikah -->
+                <div class="event-card">
+                    <div class="event-badge"><i class="fa-solid fa-ring"></i></div>
+                    <h3 class="event-type">Akad Nikah</h3>
+                    <div class="event-details">
+                        <p class="event-date"><i class="fa-regular fa-calendar-check"></i> Jum'at, 25 September 2026</p>
+                        <p class="event-time"><i class="fa-regular fa-clock"></i> Pukul 08.00 WIB</p>
+                        <p class="event-location"><i class="fa-solid fa-location-dot"></i> KUA Cengkareng</p>
+                        <p class="event-address">Kec. Cengkareng, Kota Jakarta Barat</p>
+                    </div>
+                    <div class="event-actions">
+                        <a href="https://www.google.com/maps/search/?api=1&query=KUA+Cengkareng+Jakarta+Barat" target="_blank" rel="noopener" class="btn-action">
+                            <i class="fa-solid fa-map-location-dot"></i> Google Maps KUA Cengkareng
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Event 2: Resepsi -->
+                <div class="event-card">
+                    <div class="event-badge"><i class="fa-solid fa-champagne-glasses"></i></div>
+                    <h3 class="event-type">Resepsi Pernikahan</h3>
+                    <div class="event-details">
+                        <p class="event-date"><i class="fa-regular fa-calendar-check"></i> Sabtu, 26 September 2026</p>
+                        <p class="event-time"><i class="fa-regular fa-clock"></i> Pukul 10.00 WIB - Selesai</p>
+                        <p class="event-location"><i class="fa-solid fa-location-dot"></i> Kediaman Mempelai</p>
+                        <p class="event-address">Pendongkelan 008/016 Kapuk, Cengkareng, Jakarta Barat (samping pos Rt.008/Rw.016)</p>
+                    </div>
+                    <div class="event-actions">
+                        <a href="https://www.google.com/maps/place/Yani+Cell/@-6.1386731,106.7483834,18z/data=!4m6!3m5!1s0x2e69f7dff28298df:0xee1dcd267b079fb8!8m2!3d-6.1386731!4d106.7483834!16s%2Fg%2F11xf79g2yy" target="_blank" rel="noopener" class="btn-action">
+                            <i class="fa-solid fa-map-location-dot"></i> Google Maps Lokasi Resepsi
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GALERI (OUR GALLERY) -->
+            <section id="galeri" class="section gallery-section">
+                <img src="assets/images/divider.png" alt="Pemisah" class="section-divider">
+                <h2 class="section-title">Our Gallery</h2>
+                <p class="section-intro">Potret kebahagiaan perjalanan cinta kami berdua.</p>
+
+                <div class="gallery-grid">
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 1" onclick="openLightbox('assets/images/gallery-1.jpg')">
+                        <img src="assets/images/gallery-1.jpg" alt="Foto mempelai 1" loading="lazy">
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 2" onclick="openLightbox('assets/images/gallery-2.jpg')">
+                        <img src="assets/images/gallery-2.jpg" alt="Foto mempelai 2" loading="lazy">
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 3" onclick="openLightbox('assets/images/gallery-3.jpg')">
+                        <img src="assets/images/gallery-3.jpg" alt="Foto mempelai 3" loading="lazy">
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 4" onclick="openLightbox('assets/images/groom.jpg')">
+                        <img src="assets/images/groom.jpg" alt="Foto mempelai pria" loading="lazy">
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 5" onclick="openLightbox('assets/images/bride.jpg')">
+                        <img src="assets/images/bride.jpg" alt="Foto mempelai wanita" loading="lazy">
+                    </div>
+                </div>
+            </section>
+
+            <!-- AMPLOP DIGITAL / CASHLESS GIFT -->
+            <section id="gift" class="section gift-section">
+                <img src="assets/images/divider.png" alt="Pemisah" class="section-divider">
+                <h2 class="section-title">Amplop Digital</h2>
+                <p class="section-intro">
+                    Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Dan jika memberi adalah ungkapan tanda kasih Anda, Anda dapat memberi kado secara cashless:
+                </p>
+
+                <!-- ATM Card BCA - Dwi -->
+                <div class="atm-card">
+                    <div class="atm-top">
+                        <img src="assets/images/chip-atm.png" alt="Chip ATM" class="atm-chip">
+                        <img src="assets/images/logo-bca.png" alt="Bank BCA" class="atm-bank-logo">
+                    </div>
+                    <div class="atm-number" id="bcaNumber">7015507471</div>
+                    <div class="atm-bottom">
+                        <div class="atm-holder">
+                            <span class="atm-label">NAMA REKENING</span>
+                            <span class="atm-name">DWISAPUTRA</span>
+                        </div>
+                        <button class="btn-copy" onclick="copyText('7015507471', this)">
+                            <i class="fa-regular fa-copy"></i> Salin
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ATM Card BCA - Annisa -->
+                <div class="atm-card">
+                    <div class="atm-top">
+                        <img src="assets/images/chip-atm.png" alt="Chip ATM" class="atm-chip">
+                        <img src="assets/images/logo-bca.png" alt="Bank BCA" class="atm-bank-logo">
+                    </div>
+                    <div class="atm-number" id="bcaNumber2">7560346110</div>
+                    <div class="atm-bottom">
+                        <div class="atm-holder">
+                            <span class="atm-label">NAMA REKENING</span>
+                            <span class="atm-name">ANNISA MUSTAFIDAH</span>
+                        </div>
+                        <button class="btn-copy" onclick="copyText('7560346110', this)">
+                            <i class="fa-regular fa-copy"></i> Salin
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Kirim Kado Fisik -->
+                <div class="physical-gift-card">
+                    <i class="fa-solid fa-gift gift-icon"></i>
+                    <h4>Kirim Kado Fisik</h4>
+                    <p id="giftAddress">
+                        Pendongkelan 008/016 Kapuk, Cengkareng, Jakarta Barat (samping pos Rt.008/Rw.016)<br>(Penerima: Dwi &amp; Annisa)
+                    </p>
+                    <button class="btn-copy-address" onclick="copyText('Pendongkelan 008/016 Kapuk, Cengkareng, Jakarta Barat (samping pos Rt.008/Rw.016) (Penerima: Dwi & Annisa)', this)">
+                        <i class="fa-regular fa-copy"></i> Salin Alamat
+                    </button>
+                </div>
+            </section>
+
+            <!-- UCAPAN & RSVP -->
+            <section id="ucapan" class="section wishes-section">
+                <img src="assets/images/divider.png" alt="Pemisah" class="section-divider">
+                <h2 class="section-title">Ucapan & Doa</h2>
+                <p class="section-intro">Berikan ucapan harapan dan do'a restu kepada kedua mempelai.</p>
+
+                <!-- RSVP Form -->
+                <form id="wishesForm" class="wishes-form">
+                    <div class="form-group">
+                        <label for="senderName"><i class="fa-solid fa-user"></i> Nama Lengkap</label>
+                        <input type="text" id="senderName" required placeholder="Contoh: Budi Santoso">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attendance"><i class="fa-solid fa-circle-check"></i> Konfirmasi Kehadiran</label>
+                        <select id="attendance" required>
+                            <option value="Hadir">Saya akan Hadir</option>
+                            <option value="Tidak Hadir">Mohon Maaf, Belum Bisa Hadir</option>
+                            <option value="Ragu-ragu">Masih Ragu-ragu</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="wishesMessage"><i class="fa-solid fa-comment-dots"></i> Doa & Ucapan</label>
+                        <textarea id="wishesMessage" rows="3" required placeholder="Tuliskan doa & ucapan terbaik Anda..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit-wish">
+                        <i class="fa-solid fa-paper-plane"></i> Kirim Ucapan
+                    </button>
+                </form>
+
+                <!-- Wishes Feed List -->
+                <div class="wishes-container">
+                    <h4 class="wishes-count"><i class="fa-solid fa-comments"></i> <span id="wishesTotal">0</span> Doa & Harapan</h4>
+                    <div id="wishesList" class="wishes-list">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- PENUTUP / CLOSING -->
+            <section class="section closing-section">
+                <div class="closing-card">
+                    <img src="assets/images/gunungan.png" alt="Gunungan Sunda" class="closing-gunungan">
+                    <h2 class="closing-title">Terima Kasih</h2>
+                    <p class="closing-text">
+                        Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa dan restu kepada kedua mempelai.<br><br>
+                        Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.
+                    </p>
+                    <p class="closing-salam">Wassalamu’alaikum Warahmatullahi Wabarakatuh.</p>
+                    <div class="closing-families">
+                        <p class="closing-hormat">Hormat Kami:</p>
+                        <p class="closing-fam">Kel. Bapak Siswanto (Alm) &amp; Ibu Siti Musyarofah (Almh)</p>
+                        <p class="closing-fam">Kel. Bapak Nana Sarip &amp; Ibu Aam Rosita</p>
+                    </div>
+                    <h3 class="closing-names">Annisa &amp; Dwi</h3>
+                </div>
+
+                <footer class="footer">
+                    <p>© 2026 The Wedding of Dwi & Annisa</p>
+                    <p class="footer-small">Designed with <i class="fa-solid fa-heart" style="color: #c5a880;"></i> Tema Adat Sunda</p>
+                </footer>
+            </section>
+
+        </main>
+
+        <!-- ==================== BOTTOM NAVIGATION BAR ==================== -->
+        <nav id="bottomNav" class="bottom-nav hide">
+            <a href="#home" class="nav-item active">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+            <a href="#mempelai" class="nav-item">
+                <i class="fa-solid fa-user-group"></i>
+                <span>Mempelai</span>
+            </a>
+            <a href="#acara" class="nav-item">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>Acara</span>
+            </a>
+            <a href="#galeri" class="nav-item">
+                <i class="fa-solid fa-images"></i>
+                <span>Galeri</span>
+            </a>
+            <a href="#gift" class="nav-item">
+                <i class="fa-solid fa-gift"></i>
+                <span>Gift</span>
+            </a>
+            <a href="#ucapan" class="nav-item">
+                <i class="fa-solid fa-comments"></i>
+                <span>Ucapan</span>
+            </a>
+        </nav>
+
+        <!-- Lightbox Modal for Gallery -->
+        <div id="lightbox" class="lightbox-modal" onclick="closeLightbox()" role="dialog" aria-modal="true" aria-label="Preview Foto">
+            <span class="lightbox-close" role="button" tabindex="0" aria-label="Tutup preview foto">&times;</span>
+            <img id="lightboxImg" class="lightbox-img" src="" alt="Preview Foto">
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast" class="toast">Tersalin ke clipboard!</div>
+
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>
