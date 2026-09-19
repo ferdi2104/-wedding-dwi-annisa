@@ -1080,6 +1080,65 @@ body {
     color: #ffffff;
 }
 
+.contact-card {
+    background: #ffffff;
+    border: 1px solid rgba(171, 122, 62, 0.35);
+    border-radius: var(--radius-lg);
+    padding: 24px 20px;
+    width: 100%;
+    margin-top: 18px;
+    box-shadow: var(--shadow-card);
+    text-align: center;
+}
+
+.contact-icon {
+    font-size: 2.2rem;
+    color: #25d366;
+    margin-bottom: 8px;
+}
+
+.contact-card h4 {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--color-text-dark);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.contact-card p {
+    font-size: 0.9rem;
+    color: var(--color-text-body);
+    line-height: 1.6;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+}
+
+.btn-whatsapp:active {
+    transform: scale(0.96);
+}
+
 /* ==========================================================
    UCAPAN & RSVP SECTION
    ========================================================== */
@@ -1483,7 +1542,8 @@ button:active,
 .btn-action:active,
 .btn-copy:active,
 .btn-submit-wish:active,
-.btn-copy-address:active {
+.btn-copy-address:active,
+.btn-whatsapp:active {
     transform: scale(0.96);
 }
 
@@ -1524,6 +1584,7 @@ button:active,
     .profile-card-sunda,
     .event-card,
     .wishes-form,
+    .contact-card,
     .closing-card {
         padding: 20px 14px;
     }
