@@ -28,7 +28,7 @@ Website undangan pernikahan digital bertema **Adat Sunda (Alam & Saung Tradision
 - **Amplop Digital (Cashless Gift):**
   - Kartu BCA Dwi Saputra (`7015507471`) & Annisa Mustafidah (`7560346110`) dengan tombol salin nomor rekening satu klik.
   - Alamat pengiriman kado fisik beserta tombol salin alamat dan nomor telepon penerima.
-- **Buku Tamu / Doa & RSVP:** Form konfirmasi kehadiran dan pengiriman doa restu yang tersimpan secara lokal.
+- **Buku Tamu / Doa & RSVP:** Form konfirmasi kehadiran dan pengiriman doa restu yang tersimpan secara publik di cloud (Vercel Serverless & Blob Storage) dan tersinkronisasi lintas semua perangkat.
 - **Aksesibilitas & Kompatibilitas Mobile:**
   - Teroptimasi penuh untuk seluruh layar HP Android & iPhone (`viewport-fit=cover`, dynamic `--vh`, safe area insets).
   - Mendukung preferensi gerak rendah (`prefers-reduced-motion`).

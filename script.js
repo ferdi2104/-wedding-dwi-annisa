@@ -218,21 +218,56 @@ if (lightboxCloseBtn) {
     });
 }
 
-// 6. UCAPAN & RSVP (LOCALSTORAGE)
-const WISHES_STORAGE_KEY = 'wedding_wishes_v2';
+// 6. UCAPAN & RSVP (PUBLIC LIVE API + BLOB STORAGE)
+const WISHES_STORAGE_KEY = 'wedding_wishes_public_cache';
+const WISHES_API_URL = '/api/wishes';
 
 function initWishes() {
     const form = document.getElementById('wishesForm');
+    const submitBtn = form ? form.querySelector('.btn-submit-wish') : null;
     const wishesList = document.getElementById('wishesList');
     const wishesTotal = document.getElementById('wishesTotal');
+    const nameInput = document.getElementById('senderName');
+    const attendInput = document.getElementById('attendance');
+    const msgInput = document.getElementById('wishesMessage');
 
-    localStorage.removeItem('wedding_wishes_dwi_annisa');
-    let wishes = JSON.parse(localStorage.getItem(WISHES_STORAGE_KEY)) || [];
+    // Pre-fill nama tamu dari query URL ?to= jika tersedia
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestParam = urlParams.get('to');
+    if (guestParam && nameInput && !nameInput.value) {
+        nameInput.value = guestParam.trim();
+    }
 
-    function render() {
-        wishesTotal.textContent = wishes.length;
+    let wishes = [];
+    try {
+        const cached = localStorage.getItem(WISHES_STORAGE_KEY);
+        if (cached) wishes = JSON.parse(cached);
+    } catch (_) {}
+
+    function render(loading = false) {
+        if (wishesTotal) wishesTotal.textContent = wishes.length;
+        if (!wishesList) return;
+
+        if (loading && wishes.length === 0) {
+            wishesList.innerHTML = `
+                <div class="wishes-loading">
+                    <i class="fa-solid fa-spinner fa-spin"></i> Memuat ucapan publik...
+                </div>
+            `;
+            return;
+        }
+
+        if (wishes.length === 0) {
+            wishesList.innerHTML = `
+                <div class="wishes-empty">
+                    <i class="fa-regular fa-comment-dots"></i>
+                    Belum ada ucapan. Jadilah yang pertama memberikan do'a restu untuk kedua mempelai!
+                </div>
+            `;
+            return;
+        }
+
         wishesList.innerHTML = '';
-
         wishes.forEach(item => {
             const el = document.createElement('div');
             el.className = 'wish-item';
@@ -243,39 +278,104 @@ function initWishes() {
 
             el.innerHTML = `
                 <div class="wish-header">
-                    <span class="wish-author">${escapeHtml(item.name)}</span>
-                    <span class="wish-badge ${badgeClass}">${item.attendance}</span>
+                    <span class="wish-author">${escapeHtml(item.name || 'Tamu Undangan')}</span>
+                    <span class="wish-badge ${badgeClass}">${escapeHtml(item.attendance || 'Hadir')}</span>
                 </div>
-                <p class="wish-msg">${escapeHtml(item.message)}</p>
-                <span class="wish-time">${item.date}</span>
+                <p class="wish-msg">${escapeHtml(item.message || '')}</p>
+                <span class="wish-time">${escapeHtml(item.date || '')}</span>
             `;
             wishesList.appendChild(el);
         });
     }
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const nameInput = document.getElementById('senderName');
-        const attendInput = document.getElementById('attendance');
-        const msgInput = document.getElementById('wishesMessage');
+    async function loadPublicWishes(silent = false) {
+        if (!silent && wishes.length === 0) render(true);
+        try {
+            const res = await fetch(`${WISHES_API_URL}?t=${Date.now()}`);
+            if (res.ok) {
+                const result = await res.json();
+                if (result.success && Array.isArray(result.data)) {
+                    wishes = result.data;
+                    try {
+                        localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(wishes));
+                    } catch (_) {}
+                    render();
+                }
+            }
+        } catch (err) {
+            console.warn('Gagal memuat ucapan dari cloud, menggunakan cache lokal:', err);
+            render();
+        }
+    }
 
-        const newWish = {
-            name: nameInput.value.trim(),
-            attendance: attendInput.value,
-            message: msgInput.value.trim(),
-            date: 'Baru saja'
-        };
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        wishes.unshift(newWish);
-        localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(wishes));
-        render();
+            const name = nameInput.value.trim();
+            const attendance = attendInput.value;
+            const message = msgInput.value.trim();
 
-        nameInput.value = '';
-        msgInput.value = '';
-        showToast('Terima kasih atas doa & ucapan Anda!');
-    });
+            if (!name || !message) {
+                showToast('Mohon lengkapi nama dan ucapan Anda.');
+                return;
+            }
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
+            }
+
+            try {
+                const res = await fetch(WISHES_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, attendance, message })
+                });
+
+                const result = await res.json();
+
+                if (res.ok && result.success) {
+                    if (Array.isArray(result.data)) {
+                        wishes = result.data;
+                    } else if (result.newWish) {
+                        wishes.unshift(result.newWish);
+                    }
+                    try {
+                        localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(wishes));
+                    } catch (_) {}
+                    render();
+
+                    msgInput.value = '';
+                    showToast('Terima kasih atas do\'a & restu Anda!');
+                    if (wishesList) wishesList.scrollTop = 0;
+                } else {
+                    showToast(result.error || 'Gagal mengirim ucapan. Silakan coba lagi.');
+                }
+            } catch (err) {
+                console.error('Submit error:', err);
+                showToast('Koneksi bermasalah. Silakan periksa jaringan dan coba lagi.');
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Ucapan';
+                }
+            }
+        });
+    }
 
     render();
+    loadPublicWishes();
+
+    window.addEventListener('focus', () => {
+        loadPublicWishes(true);
+    });
+
+    setInterval(() => {
+        if (!document.hidden) {
+            loadPublicWishes(true);
+        }
+    }, 30000);
 }
 
 function escapeHtml(text) {
