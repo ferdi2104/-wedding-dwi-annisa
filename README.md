@@ -24,7 +24,7 @@ Website undangan pernikahan digital bertema **Adat Sunda (Alam & Saung Tradision
   - **Akad Nikah:** Jum'at, 25 September 2026 | 08.00 WIB | KUA Cengkareng.
   - **Resepsi:** Sabtu, 26 September 2026 | 10.00 WIB – Selesai | Pendongkelan 008/016 Kapuk, Cengkareng (Google Maps terintegrasi).
 - **Kontak Penting WhatsApp:** Tombol chat langsung ke nomor `+62 895-3261-94519` untuk konfirmasi kehadiran dan informasi acara.
-- **Galeri Foto:** Galeri foto kedua mempelai dilengkapi popup *Lightbox Modal*.
+- **Galeri Foto:** Galeri 10 foto prewedding asli berbusana adat Sunda dilengkapi popup *Lightbox Modal* interaktif dan dukungan navigasi keyboard.
 - **Amplop Digital (Cashless Gift):**
   - Kartu BCA Dwi Saputra (`7015507471`) & Annisa Mustafidah (`7560346110`) dengan tombol salin nomor rekening satu klik.
   - Alamat pengiriman kado fisik beserta tombol salin alamat dan nomor telepon penerima.
