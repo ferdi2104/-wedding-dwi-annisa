@@ -762,8 +762,11 @@ body {
     transition: transform 0.2s;
 }
 
-.btn-socmed-sunda:hover {
+.btn-socmed-sunda:hover,
+.btn-socmed-sunda:focus-visible {
     transform: translateY(-2px);
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
 }
 
 .ampersand-divider-sunda {
