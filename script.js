@@ -208,6 +208,16 @@ document.querySelectorAll('.gallery-item').forEach(item => {
     });
 });
 
+const lightboxCloseBtn = document.querySelector('.lightbox-close');
+if (lightboxCloseBtn) {
+    lightboxCloseBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            closeLightbox();
+        }
+    });
+}
+
 // 6. UCAPAN & RSVP (LOCALSTORAGE)
 const WISHES_STORAGE_KEY = 'wedding_wishes_v2';
 

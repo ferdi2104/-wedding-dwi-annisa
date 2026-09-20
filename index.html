@@ -242,20 +242,35 @@
                 <p class="section-intro">Potret kebahagiaan perjalanan cinta kami berdua.</p>
 
                 <div class="gallery-grid">
-                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 1" onclick="openLightbox('assets/images/gallery-1.jpg')">
-                        <img src="assets/images/gallery-1.jpg" alt="Foto mempelai 1" loading="lazy">
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 1: Dwi &amp; Annisa berdiri berdampingan" onclick="openLightbox('assets/images/gallery-1.jpg')">
+                        <img src="assets/images/gallery-1.jpg" alt="Foto prewedding Dwi dan Annisa berdiri berdampingan" loading="lazy">
                     </div>
-                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 2" onclick="openLightbox('assets/images/gallery-2.jpg')">
-                        <img src="assets/images/gallery-2.jpg" alt="Foto mempelai 2" loading="lazy">
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 2: Annisa duduk anggun dan Dwi berdiri" onclick="openLightbox('assets/images/gallery-2.jpg')">
+                        <img src="assets/images/gallery-2.jpg" alt="Foto prewedding Annisa duduk anggun dan Dwi berdiri" loading="lazy">
                     </div>
-                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 3" onclick="openLightbox('assets/images/gallery-3.jpg')">
-                        <img src="assets/images/gallery-3.jpg" alt="Foto mempelai 3" loading="lazy">
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 3: Dwi menatap Annisa dengan penuh kasih" onclick="openLightbox('assets/images/gallery-3.jpg')">
+                        <img src="assets/images/gallery-3.jpg" alt="Foto prewedding Dwi menatap Annisa dengan penuh kasih" loading="lazy">
                     </div>
-                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 4" onclick="openLightbox('assets/images/groom.jpg')">
-                        <img src="assets/images/groom.jpg" alt="Foto mempelai pria" loading="lazy">
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 4: Momen hangat Dwi dan Annisa bergandengan tangan" onclick="openLightbox('assets/images/gallery-4.jpg')">
+                        <img src="assets/images/gallery-4.jpg" alt="Foto prewedding Dwi dan Annisa bergandengan tangan tersenyum" loading="lazy">
                     </div>
-                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 5" onclick="openLightbox('assets/images/bride.jpg')">
-                        <img src="assets/images/bride.jpg" alt="Foto mempelai wanita" loading="lazy">
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 5: Dwi dan Annisa tersenyum bahagia" onclick="openLightbox('assets/images/gallery-5.jpg')">
+                        <img src="assets/images/gallery-5.jpg" alt="Foto prewedding Dwi dan Annisa tersenyum bahagia" loading="lazy">
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 6: Dwi dan Annisa berbusana adat Sunda memegang keris" onclick="openLightbox('assets/images/gallery-6.jpg')">
+                        <img src="assets/images/gallery-6.jpg" alt="Foto prewedding Dwi dan Annisa berbusana adat Sunda memegang keris" loading="lazy">
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 7: Potret serasi Dwi dan Annisa berdiri bersama" onclick="openLightbox('assets/images/gallery-7.jpg')">
+                        <img src="assets/images/gallery-7.jpg" alt="Foto prewedding Dwi dan Annisa berdiri bersama serasi" loading="lazy">
+                    </div>
+                    <div class="gallery-item gallery-item-wide" role="button" tabindex="0" aria-label="Buka foto galeri 8: Dwi dan Annisa bersimpuh anggun berbusana adat Sunda" onclick="openLightbox('assets/images/gallery-8.jpg')">
+                        <img src="assets/images/gallery-8.jpg" alt="Foto prewedding Dwi dan Annisa bersimpuh anggun adat Sunda" loading="lazy">
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 9: Dwi mendampingi Annisa tersenyum manis" onclick="openLightbox('assets/images/gallery-9.jpg')">
+                        <img src="assets/images/gallery-9.jpg" alt="Foto prewedding Dwi mendampingi Annisa tersenyum manis" loading="lazy">
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Buka foto galeri 10: Annisa mendampingi Dwi penuh kehangatan" onclick="openLightbox('assets/images/gallery-10.jpg')">
+                        <img src="assets/images/gallery-10.jpg" alt="Foto prewedding Annisa merangkul pundak Dwi penuh kehangatan" loading="lazy">
                     </div>
                 </div>
             </section>
@@ -427,7 +442,7 @@
         <!-- Lightbox Modal for Gallery -->
         <div id="lightbox" class="lightbox-modal" onclick="closeLightbox()" role="dialog" aria-modal="true" aria-label="Preview Foto">
             <span class="lightbox-close" role="button" tabindex="0" aria-label="Tutup preview foto">&times;</span>
-            <img id="lightboxImg" class="lightbox-img" src="" alt="Preview Foto">
+            <img id="lightboxImg" class="lightbox-img" src="" alt="Preview Foto" onclick="event.stopPropagation()">
         </div>
 
         <!-- Toast Notification -->
