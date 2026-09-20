@@ -909,7 +909,7 @@ body {
 .gallery-item {
     border-radius: var(--radius-md);
     overflow: hidden;
-    height: 180px;
+    height: 190px;
     border: 2px solid rgba(171, 122, 62, 0.35);
     box-shadow: var(--shadow-card);
     cursor: pointer;
@@ -920,7 +920,7 @@ body {
 .gallery-item:first-child,
 .gallery-item.gallery-item-wide {
     grid-column: span 2;
-    height: 240px;
+    height: 250px;
 }
 
 .gallery-item:hover,
