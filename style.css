@@ -1276,14 +1276,46 @@ body {
     text-align: left;
 }
 
+.wishes-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
 .wishes-count {
     font-size: 1rem;
     color: var(--color-gold-dark);
-    margin-bottom: 12px;
     display: flex;
     align-items: center;
     gap: 8px;
     font-weight: 700;
+    margin-bottom: 0;
+}
+
+.btn-refresh-wishes {
+    background: transparent;
+    border: 1px solid rgba(171, 122, 62, 0.35);
+    color: var(--color-gold);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.84rem;
+    transition: all 0.25s ease;
+}
+
+.btn-refresh-wishes:hover {
+    background: rgba(171, 122, 62, 0.12);
+    color: var(--color-gold-dark);
+    transform: rotate(90deg);
+}
+
+.btn-refresh-wishes.spinning i {
+    animation: fa-spin 0.8s linear infinite;
 }
 
 .wishes-list {

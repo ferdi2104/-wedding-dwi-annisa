@@ -63,6 +63,11 @@ function initMusicAndCover() {
 
         // Scroll to first section
         window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Segarkan ucapan publik saat undangan dibuka
+        if (typeof window.refreshWeddingWishes === 'function') {
+            window.refreshWeddingWishes();
+        }
     };
 
     btnOpen.addEventListener('click', openInvitation);
@@ -221,10 +226,12 @@ if (lightboxCloseBtn) {
 // 6. UCAPAN & RSVP (PUBLIC LIVE API + BLOB STORAGE)
 const WISHES_STORAGE_KEY = 'wedding_wishes_public_cache';
 const WISHES_API_URL = '/api/wishes';
+const WISHES_FALLBACK_URL = 'https://ioadggcqsaiwr3n6.public.blob.vercel-storage.com/wishes.json';
 
 function initWishes() {
     const form = document.getElementById('wishesForm');
     const submitBtn = form ? form.querySelector('.btn-submit-wish') : null;
+    const refreshBtn = document.getElementById('btnRefreshWishes');
     const wishesList = document.getElementById('wishesList');
     const wishesTotal = document.getElementById('wishesTotal');
     const nameInput = document.getElementById('senderName');
@@ -291,21 +298,60 @@ function initWishes() {
     async function loadPublicWishes(silent = false) {
         if (!silent && wishes.length === 0) render(true);
         try {
-            const res = await fetch(`${WISHES_API_URL}?t=${Date.now()}`);
-            if (res.ok) {
-                const result = await res.json();
-                if (result.success && Array.isArray(result.data)) {
-                    wishes = result.data;
-                    try {
-                        localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(wishes));
-                    } catch (_) {}
-                    render();
+            let fetchedData = null;
+
+            // 1. Coba via API Serverless
+            try {
+                const res = await fetch(`${WISHES_API_URL}?t=${Date.now()}`, { cache: 'no-store' });
+                if (res.ok) {
+                    const result = await res.json();
+                    if (result.success && Array.isArray(result.data)) {
+                        fetchedData = result.data;
+                    }
                 }
+            } catch (_) {}
+
+            // 2. Fallback instan ke CDN Blob Storage jika API tidak merespons
+            if (!fetchedData) {
+                try {
+                    const fallbackRes = await fetch(`${WISHES_FALLBACK_URL}?t=${Date.now()}`, { cache: 'no-store' });
+                    if (fallbackRes.ok) {
+                        const result = await fallbackRes.json();
+                        if (Array.isArray(result)) {
+                            fetchedData = result;
+                        }
+                    }
+                } catch (_) {}
+            }
+
+            if (fetchedData && Array.isArray(fetchedData)) {
+                wishes = fetchedData;
+                try {
+                    localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(wishes));
+                } catch (_) {}
+                render();
             }
         } catch (err) {
-            console.warn('Gagal memuat ucapan dari cloud, menggunakan cache lokal:', err);
+            console.warn('Gagal memuat ucapan dari cloud:', err);
             render();
         }
+    }
+
+    // Ekspor fungsi agar bisa dipanggil saat buka cover
+    window.refreshWeddingWishes = () => loadPublicWishes(true);
+
+    // Tombol refresh interaktif
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', async () => {
+            refreshBtn.classList.add('spinning');
+            refreshBtn.disabled = true;
+            await loadPublicWishes(true);
+            setTimeout(() => {
+                refreshBtn.classList.remove('spinning');
+                refreshBtn.disabled = false;
+                showToast('Ucapan berhasil disegarkan!');
+            }, 300);
+        });
     }
 
     if (form) {
@@ -375,7 +421,7 @@ function initWishes() {
         if (!document.hidden) {
             loadPublicWishes(true);
         }
-    }, 30000);
+    }, 12000);
 }
 
 function escapeHtml(text) {

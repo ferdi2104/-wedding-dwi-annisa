@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- Custom Style -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2.2">
 </head>
 <body>
 
@@ -366,8 +366,13 @@
 
                 <!-- Wishes Feed List -->
                 <div class="wishes-container">
-                    <h4 class="wishes-count"><i class="fa-solid fa-comments"></i> <span id="wishesTotal">0</span> Doa & Harapan</h4>
-                    <div id="wishesList" class="wishes-list">
+                    <div class="wishes-header-row">
+                        <h4 class="wishes-count"><i class="fa-solid fa-comments"></i> <span id="wishesTotal">0</span> Doa &amp; Harapan</h4>
+                        <button type="button" id="btnRefreshWishes" class="btn-refresh-wishes" aria-label="Segarkan daftar ucapan" title="Segarkan ucapan terbaru">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    </div>
+                    <div id="wishesList" class="wishes-list" aria-live="polite">
                         <!-- Rendered by JS -->
                     </div>
                 </div>
@@ -439,6 +444,6 @@
     </div>
 
     <!-- Script -->
-    <script src="script.js"></script>
+    <script src="script.js?v=2.2"></script>
 </body>
 </html>
