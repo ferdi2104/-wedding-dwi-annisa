@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@vercel/blob": "^2.8.0"
+    "@supabase/supabase-js": "^2.116.0",
+    "@vercel/blob": "^2.8.0",
+    "pg": "^8.23.0"
   }
 }

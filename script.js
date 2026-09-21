@@ -223,10 +223,11 @@ if (lightboxCloseBtn) {
     });
 }
 
-// 6. UCAPAN & RSVP (PUBLIC LIVE API + BLOB STORAGE)
+// 6. UCAPAN & RSVP (SUPABASE REALTIME / CLOUD DATABASE)
 const WISHES_STORAGE_KEY = 'wedding_wishes_public_cache';
+const SUPABASE_API_URL = 'https://inguzihjfpqnptbitwyj.supabase.co/rest/v1/wishes';
+const SUPABASE_KEY = 'sb_publishable_oFT9K4OvFjGqtPzQnuXOow_zynUZsQI';
 const WISHES_API_URL = '/api/wishes';
-const WISHES_FALLBACK_URL = 'https://ioadggcqsaiwr3n6.public.blob.vercel-storage.com/wishes.json';
 
 function initWishes() {
     const form = document.getElementById('wishesForm');
@@ -307,25 +308,28 @@ function initWishes() {
         try {
             let fetchedData = null;
 
-            // 1. Coba via API Serverless
             try {
-                const res = await fetch(`${WISHES_API_URL}?t=${Date.now()}`, { cache: 'no-store' });
+                const res = await fetch(`${SUPABASE_API_URL}?select=*&order=created_at.desc&limit=300`, {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                });
                 if (res.ok) {
-                    const result = await res.json();
-                    if (result.success && Array.isArray(result.data)) {
-                        fetchedData = result.data;
+                    const data = await res.json();
+                    if (Array.isArray(data)) {
+                        fetchedData = data;
                     }
                 }
             } catch (_) {}
 
-            // 2. Fallback instan ke CDN Blob Storage jika API tidak merespons
             if (!fetchedData) {
                 try {
-                    const fallbackRes = await fetch(`${WISHES_FALLBACK_URL}?t=${Date.now()}`, { cache: 'no-store' });
-                    if (fallbackRes.ok) {
-                        const result = await fallbackRes.json();
-                        if (Array.isArray(result)) {
-                            fetchedData = result;
+                    const res = await fetch(`${WISHES_API_URL}?t=${Date.now()}`, { cache: 'no-store' });
+                    if (res.ok) {
+                        const result = await res.json();
+                        if (result.success && Array.isArray(result.data)) {
+                            fetchedData = result.data;
                         }
                     }
                 } catch (_) {}
@@ -404,24 +408,54 @@ function initWishes() {
 
             let saved = false;
             try {
-                const res = await fetch(WISHES_API_URL, {
+                const res = await fetch(SUPABASE_API_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, attendance, message })
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=representation'
+                    },
+                    body: JSON.stringify({
+                        name,
+                        attendance,
+                        message,
+                        date: formattedDate
+                    })
                 });
 
                 if (res.ok) {
                     const result = await res.json();
-                    if (result.success) {
-                        if (Array.isArray(result.data)) {
-                            wishes = result.data;
-                        } else if (result.newWish) {
-                            wishes.unshift(result.newWish);
-                        }
-                        saved = true;
+                    if (Array.isArray(result) && result[0]) {
+                        wishes.unshift(result[0]);
+                    } else {
+                        wishes.unshift(localWish);
                     }
+                    saved = true;
                 }
             } catch (_) {}
+
+            if (!saved) {
+                try {
+                    const res = await fetch(WISHES_API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, attendance, message })
+                    });
+
+                    if (res.ok) {
+                        const result = await res.json();
+                        if (result.success) {
+                            if (result.newWish) {
+                                wishes.unshift(result.newWish);
+                            } else {
+                                wishes.unshift(localWish);
+                            }
+                            saved = true;
+                        }
+                    }
+                } catch (_) {}
+            }
 
             if (!saved) {
                 wishes.unshift(localWish);
