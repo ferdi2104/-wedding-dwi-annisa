@@ -248,7 +248,14 @@ function initWishes() {
     let wishes = [];
     try {
         const cached = localStorage.getItem(WISHES_STORAGE_KEY);
-        if (cached) wishes = JSON.parse(cached);
+        if (cached) wishes = JSON.parse(cached) || [];
+        if (!wishes.length) {
+            const legacy = localStorage.getItem('wedding_wishes_v2') || localStorage.getItem('wedding_wishes_dwi_annisa');
+            if (legacy) {
+                wishes = JSON.parse(legacy) || [];
+                localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(wishes));
+            }
+        }
     } catch (_) {}
 
     function render(loading = false) {
@@ -324,13 +331,13 @@ function initWishes() {
                 } catch (_) {}
             }
 
-            if (fetchedData && Array.isArray(fetchedData)) {
+            if (Array.isArray(fetchedData) && fetchedData.length > 0) {
                 wishes = fetchedData;
                 try {
                     localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(wishes));
                 } catch (_) {}
-                render();
             }
+            render();
         } catch (err) {
             console.warn('Gagal memuat ucapan dari cloud:', err);
             render();
@@ -372,6 +379,30 @@ function initWishes() {
                 submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
             }
 
+            const now = new Date();
+            const dateFormatter = new Intl.DateTimeFormat('id-ID', {
+                timeZone: 'Asia/Jakarta',
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            });
+            let formattedDate = 'Baru saja';
+            try {
+                formattedDate = `${dateFormatter.format(now).replace(/\./g, ':')} WIB`;
+            } catch (_) {}
+
+            const localWish = {
+                id: `w_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+                name,
+                attendance,
+                message,
+                date: formattedDate
+            };
+
+            let saved = false;
             try {
                 const res = await fetch(WISHES_API_URL, {
                     method: 'POST',
@@ -379,33 +410,34 @@ function initWishes() {
                     body: JSON.stringify({ name, attendance, message })
                 });
 
-                const result = await res.json();
-
-                if (res.ok && result.success) {
-                    if (Array.isArray(result.data)) {
-                        wishes = result.data;
-                    } else if (result.newWish) {
-                        wishes.unshift(result.newWish);
+                if (res.ok) {
+                    const result = await res.json();
+                    if (result.success) {
+                        if (Array.isArray(result.data)) {
+                            wishes = result.data;
+                        } else if (result.newWish) {
+                            wishes.unshift(result.newWish);
+                        }
+                        saved = true;
                     }
-                    try {
-                        localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(wishes));
-                    } catch (_) {}
-                    render();
+                }
+            } catch (_) {}
 
-                    msgInput.value = '';
-                    showToast('Terima kasih atas do\'a & restu Anda!');
-                    if (wishesList) wishesList.scrollTop = 0;
-                } else {
-                    showToast(result.error || 'Gagal mengirim ucapan. Silakan coba lagi.');
-                }
-            } catch (err) {
-                console.error('Submit error:', err);
-                showToast('Koneksi bermasalah. Silakan periksa jaringan dan coba lagi.');
-            } finally {
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Ucapan';
-                }
+            if (!saved) {
+                wishes.unshift(localWish);
+            }
+
+            try {
+                localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(wishes));
+            } catch (_) {}
+            render();
+
+            msgInput.value = '';
+            showToast('Terima kasih atas do\'a & restu Anda!');
+            if (wishesList) wishesList.scrollTop = 0;
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Ucapan';
             }
         });
     }
@@ -421,7 +453,7 @@ function initWishes() {
         if (!document.hidden) {
             loadPublicWishes(true);
         }
-    }, 12000);
+    }, 60000);
 }
 
 function escapeHtml(text) {

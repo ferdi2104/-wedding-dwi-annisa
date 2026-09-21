@@ -10,19 +10,14 @@ function sanitize(str) {
 }
 
 async function fetchCurrentWishes() {
-  try {
-    const { blobs } = await list({ prefix: BLOB_NAME });
-    const target = blobs.find(b => b.pathname === BLOB_NAME);
-    if (!target) return [];
-    
-    const res = await fetch(`${target.url}?t=${Date.now()}`, { cache: 'no-store' });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return Array.isArray(data) ? data : [];
-  } catch (err) {
-    console.error('Error reading blob wishes:', err);
-    return [];
-  }
+  const { blobs } = await list({ prefix: BLOB_NAME });
+  const target = blobs.find(b => b.pathname === BLOB_NAME);
+  if (!target) return [];
+  
+  const res = await fetch(`${target.url}?t=${Date.now()}`, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`Blob fetch error: ${res.status}`);
+  const data = await res.json();
+  return Array.isArray(data) ? data : [];
 }
 
 module.exports = async function handler(req, res) {
@@ -42,7 +37,7 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ success: true, count: wishes.length, data: wishes });
     } catch (err) {
       console.error('GET error:', err);
-      return res.status(500).json({ success: false, error: 'Gagal mengambil ucapan' });
+      return res.status(503).json({ success: false, error: 'Layanan cloud ucapan sementara tidak tersedia' });
     }
   }
 
