@@ -229,6 +229,51 @@ const SUPABASE_API_URL = 'https://inguzihjfpqnptbitwyj.supabase.co/rest/v1/wishe
 const SUPABASE_KEY = 'sb_publishable_oFT9K4OvFjGqtPzQnuXOow_zynUZsQI';
 const WISHES_API_URL = '/api/wishes';
 
+const INITIAL_WISHES = [
+    {
+        id: 3,
+        name: 'Robi alumni SD',
+        attendance: 'Hadir',
+        message: 'Selamat atas pernikahannya. Semoga langgeng hingga maut memisahkan dan menjadi keluarga yang harmonis dan bisa saling membahagiakan dwi',
+        date: '23 Sep 2026, 00:32 WIB'
+    },
+    {
+        id: 2,
+        name: 'ferdiyansyah pratama putra',
+        attendance: 'Tidak Hadir',
+        message: 'lancar acara nya sampe hari doa terbaik',
+        date: '21 Sep 2026, 19:15 WIB'
+    },
+    {
+        id: 1,
+        name: 'Keluarga Besar',
+        attendance: 'Hadir',
+        message: 'Selamat menempuh hidup baru untuk Dwi & Annisa, semoga sakinah mawaddah warahmah!',
+        date: '21 Sep 2026, 14:00 WIB'
+    },
+    {
+        id: 6,
+        name: 'nadia',
+        attendance: 'Hadir',
+        message: 'langgeng yaa',
+        date: '20 Sep 2026, 21:05 WIB'
+    },
+    {
+        id: 5,
+        name: 'ferdiyansyah pratama putra',
+        attendance: 'Tidak Hadir',
+        message: '"Barakallahu lakuma wa baraka ‘alaikuma wa jama’a bainakuma fi khair."\n\nSelamat menempuh hidup baru untuk Dwi dan Annis. Semoga hari ini menjadi awal dari perjalanan terindah yang dipenuhi cinta, kesabaran, dan keberkahan. Semoga Allah SWT senantiasa merajut rumah tangga kalian dalam keharmonisan, saling menguatkan dalam suka maupun duka, dan mengumpulkan kalian hingga ke surga-Nya. Aamiin ya Rabbal \'alamin.',
+        date: '20 Sep 2026, 20:59 WIB'
+    },
+    {
+        id: 4,
+        name: 'Ferdi & Teman-teman',
+        attendance: 'Hadir',
+        message: 'Selamat menempuh hidup baru Dwi & Annisa! Semoga langgeng dan bahagia selalu.',
+        date: '20 Sep 2026, 20:55 WIB'
+    }
+];
+
 function initWishes() {
     const form = document.getElementById('wishesForm');
     const submitBtn = form ? form.querySelector('.btn-submit-wish') : null;
@@ -251,13 +296,12 @@ function initWishes() {
         const cached = localStorage.getItem(WISHES_STORAGE_KEY);
         if (cached) wishes = JSON.parse(cached) || [];
         if (!wishes.length) {
-            const legacy = localStorage.getItem('wedding_wishes_v2') || localStorage.getItem('wedding_wishes_dwi_annisa');
-            if (legacy) {
-                wishes = JSON.parse(legacy) || [];
-                localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(wishes));
-            }
+            wishes = [...INITIAL_WISHES];
+            localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(wishes));
         }
-    } catch (_) {}
+    } catch (_) {
+        wishes = [...INITIAL_WISHES];
+    }
 
     function render(loading = false) {
         if (wishesTotal) wishesTotal.textContent = wishes.length;
